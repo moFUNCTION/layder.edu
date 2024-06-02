@@ -1,0 +1,18 @@
+/* HTML: <div class="ribbon">Your text content</div> */
+.ribbon {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    text-transform: capitalize;
+  }
+  .ribbon {
+    --d: .8em; /* the depth */
+    position: absolute;
+    top: -5px;
+    inset-inline: calc(-1*var(--d));
+    border-bottom: var(--d) solid #0008;
+    line-height: 1.8;
+    clip-path: polygon(0 0,100% 0,100% calc(100% - var(--d)),calc(100% - var(--d)) 100%,calc(100% - var(--d)) calc(100% - var(--d)),var(--d) calc(100% - var(--d)),var(--d) 100%,0 calc(100% - var(--d)));
+    background-color: #398bf6; /* the main color */
+  }
