@@ -7,26 +7,42 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
+  Flex,
+  Stack,
+  Divider,
+  ModalCloseButton,
 } from "@chakra-ui/react";
-import { BsSearch } from "react-icons/bs";
+import { BsArrowBarRight, BsSearch } from "react-icons/bs";
 import PropTypes from "prop-types";
-export const SearchModal = ({ isOpen, onClose, onSubmit, ...rest }) => {
+import styles from "./styles.module.css";
+import { Link } from "react-router-dom";
+import { ArrowRightIcon, SearchIcon } from "@chakra-ui/icons";
+import { MdArrowOutward } from "react-icons/md";
+export const SearchModal = ({
+  isOpen,
+  onClose,
+  onSubmit,
+  children: results,
+  isCentered,
+  ...rest
+}) => {
   return (
     <Modal
       motionPreset="slideInBottom"
-      size="lg"
+      size="xl"
       isOpen={isOpen}
       onClose={onClose}
+      isCentered={isCentered}
     >
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent m="10px">
         <ModalBody>
           <InputGroup
             _placeholder={{ color: "blue.700" }}
-            size="lg"
             variant="flashed"
             w="100%"
             gap="1"
+            size="lg"
             {...rest}
             onSubmit={(e) => {
               e.preventDefault();
@@ -45,6 +61,46 @@ export const SearchModal = ({ isOpen, onClose, onSubmit, ...rest }) => {
             </InputLeftAddon>
             <Input placeholder="Search for a room " />
           </InputGroup>
+          <ModalCloseButton />
+          {results && (
+            <>
+              <Divider color="gray.300" mt="2" mb="2" />
+              <Stack
+                className={styles["results-container"]}
+                gap="2"
+                maxH="400px"
+                overflow="auto"
+                p="10px"
+              >
+                {results?.map((result, index) => {
+                  return (
+                    <Button
+                      flexShrink="0"
+                      key={index}
+                      bgColor="gray.100"
+                      h="60px"
+                      borderRadius="lg"
+                      cursor="pointer"
+                      transition="0.3s"
+                      colorScheme="blue"
+                      variant="ghost"
+                      _hover={{
+                        bgColor: "blue.600",
+                        color: "gray.50",
+                      }}
+                      leftIcon={<SearchIcon />}
+                      rightIcon={<MdArrowOutward />}
+                      justifyContent="space-between"
+                      as={Link}
+                      textTransform="capitalize"
+                    >
+                      {result?.title}
+                    </Button>
+                  );
+                })}
+              </Stack>
+            </>
+          )}
         </ModalBody>
       </ModalContent>
     </Modal>

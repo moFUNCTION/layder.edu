@@ -9,12 +9,11 @@ import { Logo } from "../Logo/Logo";
 import { FaBars } from "react-icons/fa";
 import { UseUserData } from "../../../Context/UserDataProvider/UserDataProvider";
 import { GrNotification } from "react-icons/gr";
-import { SearchIcon } from "@chakra-ui/icons";
 import { BsChat } from "react-icons/bs";
-import { SearchField, Title } from "../SearchField/SearchField";
+import { Results, SearchField, Title } from "../SearchField/SearchField";
 export const Header = () => {
   const { user } = UseUserData();
-  const [isPhoneQuery] = useMediaQuery("(max-width: 900px)");
+  const [isPhoneQuery] = useMediaQuery("(max-width: 950px)");
   const [isSmallPhoneQuery] = useMediaQuery("(max-width: 700px)");
   return (
     <Flex
@@ -39,7 +38,7 @@ export const Header = () => {
             w: "100%",
             maxW: "500px",
           }}
-          ShortCuts={["CTRL", "U"]}
+          ShortCuts={["CTRL", "Q"]}
         >
           <Title>Search for a room</Title>
         </SearchField>
@@ -50,8 +49,43 @@ export const Header = () => {
             {isPhoneQuery && (
               <SearchField
                 variant="IconButton"
-                BtnStyles={{ borderRadius: "full", colorScheme: "blue" }}
-              />
+                BtnStyles={{
+                  w: "100%",
+                  maxW: "500px",
+                }}
+                ShortCuts={["CTRL", "Q"]}
+              >
+                <Title>Search for a room</Title>
+                <Results>
+                  {[
+                    {
+                      title: "mr chema",
+                    },
+                    { title: "mr hadderr" },
+                    { title: "biology roomn" },
+                    {
+                      title: "mr chema",
+                    },
+                    { title: "mr hadderr" },
+                    { title: "biology roomn" },
+                    {
+                      title: "mr chema",
+                    },
+                    { title: "mr hadderr" },
+                    { title: "biology roomn" },
+                    {
+                      title: "mr chema",
+                    },
+                    { title: "mr hadderr" },
+                    { title: "biology roomn" },
+                    {
+                      title: "mr chema",
+                    },
+                    { title: "mr hadderr" },
+                    { title: "biology roomn" },
+                  ]}
+                </Results>
+              </SearchField>
             )}
             <IconButton borderRadius="full" colorScheme="blue">
               <GrNotification />
