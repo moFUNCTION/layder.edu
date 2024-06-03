@@ -15,27 +15,43 @@ import { SearchModal } from "./SearchModal";
 export const Title = ({ children }) => {
   return children;
 };
+export const Results = ({ children }) => {
+  return children.map((child, index) => {
+    return <Flex key={index}>{child.title}</Flex>;
+  });
+};
 export const SearchField = ({
   variant,
   children,
   TooltipLabel,
   ShortCuts,
+  ShortCutsListener,
   BtnStyles,
+  ShowModalAsCenterd,
   ...rest
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  let [title, setTitle] = useState();
+  const [title, setTitle] = useState();
+  const [SearchResults, setSearchResults] = useState();
   useEffect(() => {
     React.Children.forEach(children, (child) => {
       if (child.type === Title) {
         setTitle(child.props.children);
+      } else if (child.type === Results) {
+        setSearchResults(child.props.children);
       }
     });
   }, [children]);
-
   return (
     <>
-      <SearchModal isOpen={isOpen} onClose={onClose} {...rest} />
+      <SearchModal
+        isCentered={ShowModalAsCenterd}
+        isOpen={isOpen}
+        onClose={onClose}
+        {...rest}
+      >
+        {SearchResults}
+      </SearchModal>
       {variant === "Bar" && (
         <Tooltip label={TooltipLabel}>
           <Button
